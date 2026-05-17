@@ -1,0 +1,9 @@
+queue_rules:
+  - name: default
+    # PRs can enter the queue after preliminary tests pass
+    queue_conditions:
+      - check-success=preliminary-tests
+
+    # PRs can merge only after pre-merge tests pass
+    merge_conditions:
+      - check-success=pre-merge-tests
