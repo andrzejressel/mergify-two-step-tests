@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  # STEP 1: Preliminary tests (runs on every PR)
+  preliminary-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run linters
+      run: echo "make lint"
+    - name: Run unit tests
+      run: echo "make test-unit"
+
+  # STEP 2: Pre-merge tests (runs only on merge queue branches)
+  pre-merge-tests:
+    if: startsWith(github.head_ref, 'mergify/merge-queue/')
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run integration tests
+      run: echo "make test-integration"
+    - name: Run E2E tests
+      run: echo "make test-e2e"
+    - name: Run performance benchmarks
+      run: echo "make benchmark"
