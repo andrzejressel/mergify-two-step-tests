@@ -7,3 +7,5 @@ queue_rules:
     # PRs can merge only after pre-merge tests pass
     merge_conditions:
       - check-success=pre-merge-tests
+merge_protections_settings:
+  reporting_method: check-runs
